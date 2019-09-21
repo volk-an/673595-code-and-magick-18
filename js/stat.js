@@ -47,7 +47,7 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.fillText('Список результатов:', cloudParameters.X + cloudParameters.GAP_X, cloudParameters.GAP_Y + MESSAGE_GAP_Y);
   // диаграмма
 
-  for (var i = 0; i < players.length; i++) {
+  players.forEach(function (player, i) {
     var coordX = cloudParameters.X + cloudParameters.GAP_X + (barParameters.WIDTH + barParameters.GAP) * i;
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], coordX, cloudParameters.HEIGHT + cloudParameters.Y - NAME_BOTTOM_GAP);
@@ -58,5 +58,5 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillRect(coordX, coordY, barParameters.WIDTH, barHeight);
     ctx.fillStyle = '#000';
     ctx.fillText(Math.round(times[i]), coordX, coordY - 10);
-  }
+  });
 };
