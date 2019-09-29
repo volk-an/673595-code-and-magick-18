@@ -26,9 +26,10 @@ var generateWizards = function (wizardAmount) {
   }
   return wizards;
 };
+
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var fragment = document.createDocumentFragment();
 var createElement = function () {
-  var fragment = document.createDocumentFragment();
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var wizards = generateWizards(WIZARD_AMOUNT);
   wizards.forEach(function (wizard, i) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
