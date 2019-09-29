@@ -1,6 +1,6 @@
 'use strict';
-var gameSetup = document.querySelector('.setup');
-gameSetup.classList.remove('hidden');
+var setupElement = document.querySelector('.setup');
+setupElement.classList.remove('hidden');
 var setupSimilarElement = document.querySelector('.setup-similar');
 setupSimilarElement.classList.remove('hidden');
 var similarListElement = document.querySelector('.setup-similar-list');
@@ -13,27 +13,30 @@ var wizardParms = {
 var getRandomElement = function (elemetns) {
   return elemetns[Math.floor((Math.random() * elemetns.length))];
 };
-var wizardNumber  = 4;
-  var wizards =[];
-for (var i = 0; i <= wizardNumber - 1; i++) {
-wizards[i] =
-  {
-    name: getRandomElement(wizardParms.NAMES) + ' ' + getRandomElement(wizardParms.SURNAMES),
-    coatColor: getRandomElement(wizardParms.COAT_COLORS),
-    eyeColor: getRandomElement(wizardParms.EYES_COLORS)
-  }};
-
+var WIZARD_AMOUNT = 4;
+var generateWizards = function (wizardAmount) {
+  var wizards = [];
+  for (var i = 0; i < wizardAmount; i++) {
+    wizards[i] =
+      {
+        name: getRandomElement(wizardParms.NAMES) + ' ' + getRandomElement(wizardParms.SURNAMES),
+        coatColor: getRandomElement(wizardParms.COAT_COLORS),
+        eyeColor: getRandomElement(wizardParms.EYES_COLORS)
+      };
+  }
+  return wizards;
+};
 var createElement = function () {
   var fragment = document.createDocumentFragment();
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-wizards.forEach(function (wizard, i) {
+  var wizards = generateWizards(WIZARD_AMOUNT);
+  wizards.forEach(function (wizard, i) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
     wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
     wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyeColor;
     fragment.appendChild(wizardElement);
-    });
-    similarListElement.appendChild(fragment);
+  });
+  similarListElement.appendChild(fragment);
 };
-
 createElement();
