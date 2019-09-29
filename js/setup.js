@@ -28,16 +28,17 @@ var generateWizards = function (wizardAmount) {
 };
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-var fragment = document.createDocumentFragment();
-var createElement = function () {
+
+var renderWizard = function () {
+  var fragment = document.createDocumentFragment();
   var wizards = generateWizards(WIZARD_AMOUNT);
-  wizards.forEach(function (wizard, i) {
+  wizards.forEach(function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
-    wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyeColor;
+    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyeColor;
     fragment.appendChild(wizardElement);
   });
   similarListElement.appendChild(fragment);
 };
-createElement();
+renderWizard();
