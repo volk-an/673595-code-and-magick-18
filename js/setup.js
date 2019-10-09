@@ -9,21 +9,24 @@ var wizardParms = {
   'EYES_COLORS': ['black', 'red', 'blue', 'yellow', 'green'],
   'FIREBALL_COLORS': ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848']
 };
-var setupElement = document.querySelector('.setup');
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
-var setupClose = setupElement.querySelector('.setup-close');
-var usernameInput = setupElement.querySelector('.setup-user-name');
-var eyes = setupElement.querySelector('.setup-wizard .wizard-eyes');
-var eyesInput = setupElement.querySelector('input[name=eyes-color]');
-var coat = setupElement.querySelector('.setup-wizard .wizard-coat');
-var coatInput = setupElement.querySelector('input[name=coat-color]');
-var fireball = setupElement.querySelector('.setup-fireball-wrap');
-var fireballInput = setupElement.querySelector('input[name=fireball-color]');
+var setupClose = setup.querySelector('.setup-close');
+var usernameInput = setup.querySelector('.setup-user-name');
+var eyes = setup.querySelector('.setup-wizard .wizard-eyes');
+var eyesInput = setup.querySelector('input[name=eyes-color]');
+var coat = setup.querySelector('.setup-wizard .wizard-coat');
+var coatInput = setup.querySelector('input[name=coat-color]');
+var fireball = setup.querySelector('.setup-fireball-wrap');
+var fireballInput = setup.querySelector('input[name=fireball-color]');
+
 var openPopup = function () {
-  setupElement.classList.remove('hidden');
+  setup.classList.remove('hidden');
 };
 var closePopup = function () {
-  setupElement.classList.add('hidden');
+  setup.classList.add('hidden');
 };
 var eyesChange = function () {
   eyesInput.value = getRandomElement(wizardParms.EYES_COLORS);
@@ -46,21 +49,19 @@ setupClose.addEventListener('click', function () {
 });
 
 document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === ESC_KEYCODE) {
     if (usernameInput !== document.activeElement) {
       closePopup();
     }
   }
 });
-document.addEventListener('keydown', function (evt) {
-  if (setupClose === document.activeElement) {
-    if (evt.keyCode === 13) {
-      closePopup();
-    }
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
   }
 });
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
@@ -73,9 +74,9 @@ coat.addEventListener('click', function () {
 fireball.addEventListener('click', function () {
   fireballChange();
 });
-var setupSimilarElement = document.querySelector('.setup-similar');
-setupSimilarElement.classList.remove('hidden');
-var similarListElement = document.querySelector('.setup-similar-list');
+var setupSimilarWiz = document.querySelector('.setup-similar');
+setupSimilarWiz.classList.remove('hidden');
+var similarListItem = document.querySelector('.setup-similar-list');
 var WIZARD_AMOUNT = 4;
 var generateWizards = function (wizardAmount) {
   var wizards = [];
@@ -96,12 +97,12 @@ var renderWizard = function () {
   var fragment = document.createDocumentFragment();
   var wizards = generateWizards(WIZARD_AMOUNT);
   wizards.forEach(function (wizard) {
-    var wizardElement = similarWizardTemplate.cloneNode(true);
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
-    fragment.appendChild(wizardElement);
+    var newWizard = similarWizardTemplate.cloneNode(true);
+    newWizard.querySelector('.setup-similar-label').textContent = wizard.name;
+    newWizard.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+    newWizard.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    fragment.appendChild(newWizard);
   });
-  similarListElement.appendChild(fragment);
+  similarListItem.appendChild(fragment);
 };
 renderWizard();
