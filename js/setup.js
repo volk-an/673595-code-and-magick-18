@@ -21,12 +21,37 @@ var coat = setup.querySelector('.setup-wizard .wizard-coat');
 var coatInput = setup.querySelector('input[name=coat-color]');
 var fireball = setup.querySelector('.setup-fireball-wrap');
 var fireballInput = setup.querySelector('input[name=fireball-color]');
+/*слушаем событие - клик на глаз
+определяем текущий цвет глаз (не знаю как)
+в цикле сравниваем его с wizardParms.EYES_COLORS[i]
+  если текущий цет равен  цвету из массива
+  var currentIndex = wizardParms.EYES_COLORS[i]
+получаем новый цвет. если wizardParms.EYES_COLORS[i] !== EYES_COLORS.length - 1
+новый цвет = wizardParms.EYES_COLORS[currentIndex + 1], иначе новый цвет = wizardParms.EYES_COLORS[0]
+(var getNextElement = function (elemetns, i) {
+  if (i =  elemens.length - 1) {
+    return elements[0]
+  } else {
+    return elements[i + 1]
+  }
+};)
+и потом новый цвет подставляется сюда:
+var eyesChange = function () {
+  eyesInput.value = функция получить следуюший цвет (wizardParms.EYES_COLORS);
+  eyes.style.fill = eyesInput.value;
+};
+*/
+
 
 var openPopup = function () {
   setup.classList.remove('hidden');
 };
 var closePopup = function () {
   setup.classList.add('hidden');
+};
+var eyesChange = function () {
+  eyesInput.value = getRandomElement(wizardParms.EYES_COLORS);
+  eyes.style.fill = eyesInput.value;
 };
 var eyesChange = function () {
   eyesInput.value = getRandomElement(wizardParms.EYES_COLORS);
@@ -66,6 +91,10 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 eyes.addEventListener('click', function () {
+  eyesChange();
+});
+eyes.addEventListener('click', function () {
+  var currentIndex =
   eyesChange();
 });
 coat.addEventListener('click', function () {
