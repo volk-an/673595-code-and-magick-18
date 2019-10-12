@@ -1,6 +1,6 @@
 'use strict';
-var getRandomElement = function (elemetns) {
-  return elemetns[Math.floor((Math.random() * elemetns.length))];
+var getRandomElement = function (elements) {
+  return elements[Math.floor((Math.random() * elements.length))];
 };
 var wizardParms = {
   'NAMES': ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
@@ -21,7 +21,7 @@ var coat = setup.querySelector('.setup-wizard .wizard-coat');
 var coatInput = setup.querySelector('input[name=coat-color]');
 var fireball = setup.querySelector('.setup-fireball-wrap');
 var fireballInput = setup.querySelector('input[name=fireball-color]');
-/*слушаем событие - клик на глаз
+/* слушаем событие - клик на глаз
 определяем текущий цвет глаз (не знаю как)
 в цикле сравниваем его с wizardParms.EYES_COLORS[i]
   если текущий цет равен  цвету из массива
@@ -48,10 +48,6 @@ var openPopup = function () {
 };
 var closePopup = function () {
   setup.classList.add('hidden');
-};
-var eyesChange = function () {
-  eyesInput.value = getRandomElement(wizardParms.EYES_COLORS);
-  eyes.style.fill = eyesInput.value;
 };
 var eyesChange = function () {
   eyesInput.value = getRandomElement(wizardParms.EYES_COLORS);
@@ -91,10 +87,6 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 eyes.addEventListener('click', function () {
-  eyesChange();
-});
-eyes.addEventListener('click', function () {
-  var currentIndex =
   eyesChange();
 });
 coat.addEventListener('click', function () {
